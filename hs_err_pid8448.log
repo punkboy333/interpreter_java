@@ -1,0 +1,192 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 273744 bytes for Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:390), pid=8448, tid=0x00000000000001a8
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_102-b14) (build 1.8.0_102-b14)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.102-b14 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000001a10d000):  JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=424, stack(0x000000001a9d0000,0x000000001aad0000)]
+
+Stack: [0x000000001a9d0000,0x000000001aad0000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+Current CompileTask:
+C2:    401  393       4       org.antlr.runtime.misc.LookaheadStream::LT (55 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x000000001a1ae000 JavaThread "Service Thread" daemon [_thread_blocked, id=4476, stack(0x000000001acd0000,0x000000001add0000)]
+  0x000000001a112000 JavaThread "C1 CompilerThread3" daemon [_thread_in_native, id=8252, stack(0x000000001abd0000,0x000000001acd0000)]
+  0x000000001a110800 JavaThread "C2 CompilerThread2" daemon [_thread_in_native, id=4124, stack(0x000000001aad0000,0x000000001abd0000)]
+=>0x000000001a10d000 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=424, stack(0x000000001a9d0000,0x000000001aad0000)]
+  0x000000001a107800 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=7020, stack(0x000000001a8d0000,0x000000001a9d0000)]
+  0x000000001a106000 JavaThread "Attach Listener" daemon [_thread_blocked, id=9352, stack(0x000000001a7d0000,0x000000001a8d0000)]
+  0x000000001a105000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3352, stack(0x000000001a6d0000,0x000000001a7d0000)]
+  0x000000001a100800 JavaThread "Finalizer" daemon [_thread_blocked, id=13284, stack(0x000000001a4e0000,0x000000001a5e0000)]
+  0x00000000031b6000 JavaThread "Reference Handler" daemon [_thread_blocked, id=8664, stack(0x0000000019fe0000,0x000000001a0e0000)]
+  0x00000000030c1000 JavaThread "main" [_thread_in_Java, id=8080, stack(0x0000000002f30000,0x0000000003030000)]
+
+Other Threads:
+  0x0000000018209000 VMThread [stack: 0x0000000019ee0000,0x0000000019fe0000] [id=13612]
+  0x000000001a1c1800 WatcherThread [stack: 0x000000001add0000,0x000000001aed0000] [id=8960]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000000000306e100] Compile_lock - owner thread: 0x000000001a112000
+[0x000000000306d480] MethodCompileQueue_lock - owner thread: 0x000000001a112000
+
+Heap:
+ PSYoungGen      total 38400K, used 14915K [0x00000000d5600000, 0x00000000d8080000, 0x0000000100000000)
+  eden space 33280K, 44% used [0x00000000d5600000,0x00000000d6490f38,0x00000000d7680000)
+  from space 5120K, 0% used [0x00000000d7b80000,0x00000000d7b80000,0x00000000d8080000)
+  to   space 5120K, 0% used [0x00000000d7680000,0x00000000d7680000,0x00000000d7b80000)
+ ParOldGen       total 87552K, used 0K [0x0000000080200000, 0x0000000085780000, 0x00000000d5600000)
+  object space 87552K, 0% used [0x0000000080200000,0x0000000080200000,0x0000000085780000)
+ Metaspace       used 4958K, capacity 6284K, committed 6528K, reserved 1056768K
+  class space    used 544K, capacity 584K, committed 640K, reserved 1048576K
+
+Card table byte_map: [0x0000000012580000,0x0000000012980000] byte_map_base: 0x000000001217f000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000065d2a6c0
+ Begin Bits: [0x0000000013430000, 0x0000000015428000)
+ End Bits:   [0x0000000015428000, 0x0000000017420000)
+
+Polling page: 0x0000000001750000
+
+CodeCache: size=245760Kb used=2336Kb max_used=2336Kb free=243423Kb
+ bounds [0x00000000031c0000, 0x0000000003430000, 0x00000000121c0000]
+ total_blobs=673 nmethods=435 adapters=152
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 0.382 Thread 0x000000001a112000 nmethod 433 0x00000000033ccdd0 code [0x00000000033ccf40, 0x00000000033cd2e8]
+Event: 0.382 Thread 0x000000001a112000  435       3       org.antlr.runtime.tree.RewriteRuleTokenStream::nextNode (19 bytes)
+Event: 0.382 Thread 0x000000001a112000 nmethod 435 0x00000000033cc750 code [0x00000000033cc8e0, 0x00000000033cccb8]
+Event: 0.382 Thread 0x000000001a112000  428       3       org.stringtemplate.v4.compiler.STParser$memberExpr_return::<init> (5 bytes)
+Event: 0.382 Thread 0x000000001a112000 nmethod 428 0x00000000033cc250 code [0x00000000033cc3c0, 0x00000000033cc630]
+Event: 0.382 Thread 0x000000001a112000  429   !   3       org.stringtemplate.v4.compiler.STParser::includeExpr (2371 bytes)
+Event: 0.383 Thread 0x000000001a110800 nmethod 420 0x00000000033ca8d0 code [0x00000000033caa20, 0x00000000033cab78]
+Event: 0.383 Thread 0x000000001a110800  430       4       org.antlr.runtime.tree.CommonTreeAdaptor::create (9 bytes)
+Event: 0.384 Thread 0x000000001a110800 nmethod 430 0x00000000033ca5d0 code [0x00000000033ca720, 0x00000000033ca818]
+Event: 0.384 Thread 0x000000001a110800  436       4       org.antlr.runtime.BaseRecognizer::match (76 bytes)
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (2 events):
+Event: 0.309 Thread 0x00000000030c1000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000330bbd0 method=java.lang.String.startsWith(Ljava/lang/String;I)Z @ 25
+Event: 0.379 Thread 0x00000000030c1000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000033b0048 method=org.antlr.runtime.tree.BaseTreeAdaptor.addChild(Ljava/lang/Object;Ljava/lang/Object;)V @ 5
+
+Internal exceptions (7 events):
+Event: 0.034 Thread 0x00000000030c1000 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x00000000d5607c78) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u102\7268\hotspot\sDÙóèr¡?
+Event: 0.034 Thread 0x00000000030c1000 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x00000000d5607f60) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u102\7268\hotspot\src\share\vm\prims\e„^VTÜÀ?
+Event: 0.132 Thread 0x00000000030c1000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d5869810) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u102\7268\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.132 Thread 0x00000000030c1000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d5869a20) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u102\7268\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.132 Thread 0x00000000030c1000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d586d668) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u102\7268\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.132 Thread 0x00000000030c1000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d586d878) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u102\7268\hotspot\src\share\vm\prims\jvm.cpp, line 1386]
+Event: 0.379 Thread 0x00000000030c1000 Implicit null exception at 0x00000000033aff53 to 0x00000000033b0035
+
+Events (10 events):
+Event: 0.320 loading class org/stringtemplate/v4/NumberRenderer done
+Event: 0.324 loading class java/util/regex/Pattern$Single
+Event: 0.324 loading class java/util/regex/Pattern$Single done
+Event: 0.327 loading class org/stringtemplate/v4/compiler/CodeGenerator$args_return
+Event: 0.327 loading class org/stringtemplate/v4/compiler/CodeGenerator$args_return done
+Event: 0.379 Thread 0x00000000030c1000 Uncommon trap: trap_request=0xffffff65 fr.pc=0x00000000033b0048
+Event: 0.379 Thread 0x00000000030c1000 DEOPT PACKING pc=0x00000000033b0048 sp=0x000000000302ecf0
+Event: 0.379 Thread 0x00000000030c1000 DEOPT UNPACKING pc=0x000000000320582a sp=0x000000000302ec98 mode 2
+Event: 0.384 Executing VM operation: ForceSafepoint
+Event: 0.385 Executing VM operation: ForceSafepoint done
+
+
+Dynamic libraries:
+0x00007ff6c9bf0000 - 0x00007ff6c9c27000 	C:\Program Files\Java\jre1.8.0_102\bin\java.exe
+0x00007ffa5c0e0000 - 0x00007ffa5c2b1000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffa59bd0000 - 0x00007ffa59c7b000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffa58960000 - 0x00007ffa58b7d000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffa5c030000 - 0x00007ffa5c0d2000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffa5a6b0000 - 0x00007ffa5a74e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffa5a2e0000 - 0x00007ffa5a339000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffa5a550000 - 0x00007ffa5a671000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffa59a10000 - 0x00007ffa59b75000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffa59480000 - 0x00007ffa5949e000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffa59b90000 - 0x00007ffa59bc4000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffa587d0000 - 0x00007ffa58952000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffa4d620000 - 0x00007ffa4d899000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.14393.447_none_42191651c6827bb3\COMCTL32.dll
+0x00007ffa59670000 - 0x00007ffa59938000 	C:\WINDOWS\System32\combase.dll
+0x00007ffa59570000 - 0x00007ffa59665000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffa59500000 - 0x00007ffa5956a000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffa5a680000 - 0x00007ffa5a6ae000 	C:\WINDOWS\System32\IMM32.DLL
+0x0000000066020000 - 0x00000000660f1000 	C:\Program Files\Java\jre1.8.0_102\bin\msvcr100.dll
+0x0000000065510000 - 0x0000000065daa000 	C:\Program Files\Java\jre1.8.0_102\bin\server\jvm.dll
+0x00007ffa59c80000 - 0x00007ffa59c88000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffa54d20000 - 0x00007ffa54d2a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffa51870000 - 0x00007ffa51879000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffa566b0000 - 0x00007ffa566d3000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffa5a340000 - 0x00007ffa5a3aa000 	C:\WINDOWS\System32\WS2_32.dll
+0x00000000016e0000 - 0x000000000170b000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffa59260000 - 0x00007ffa592a2000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x0000000065420000 - 0x000000006542f000 	C:\Program Files\Java\jre1.8.0_102\bin\verify.dll
+0x00000000653f0000 - 0x0000000065419000 	C:\Program Files\Java\jre1.8.0_102\bin\java.dll
+0x00000000653d0000 - 0x00000000653e6000 	C:\Program Files\Java\jre1.8.0_102\bin\zip.dll
+0x00007ffa5aab0000 - 0x00007ffa5bfb9000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffa58b80000 - 0x00007ffa5925a000 	C:\WINDOWS\System32\windows.storage.dll
+0x00007ffa58560000 - 0x00007ffa585ac000 	C:\WINDOWS\System32\powrprof.dll
+0x00007ffa59950000 - 0x00007ffa599a2000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007ffa58550000 - 0x00007ffa5855f000 	C:\WINDOWS\System32\kernel.appcore.dll
+0x00007ffa58720000 - 0x00007ffa587c9000 	C:\WINDOWS\System32\shcore.dll
+0x00007ffa585b0000 - 0x00007ffa585c4000 	C:\WINDOWS\System32\profapi.dll
+
+VM Arguments:
+java_command: org.antlr.v4.Tool RDP.g4 -depend -o C:\Users\chete\workspace2\Interpreter_Logical\target\generated-sources\antlr4 -listener -no-visitor -encoding UTF-8
+java_class_path (initial): C:\Users\chete\antlr\antlr-4.5.3-complete.jar;C:\Users\chete\antlr
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_77
+CLASSPATH=C:\Users\chete\antlr\antlr-4.5.3-complete.jar
+PATH=C:/Program Files/Java/jre1.8.0_102/bin/server;C:/Program Files/Java/jre1.8.0_102/bin;C:/Program Files/Java/jre1.8.0_102/lib/amd64;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Users\chete\apache-maven-3.3.9\bin;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\chete\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_77\bin;C:\Users\chete\antlr;C:\Users\chete\AppData\Local\Microsoft\WindowsApps;;C:\Users\chete\Downloads\eclipse-java-luna-SR2-win32-x86_64\eclipse;
+USERNAME=chete
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 26 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 14393 (10.0.14393.0)
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 26 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 8379568k(2437288k free), swap 21727028k(5172k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.102-b14) for windows-amd64 JRE (1.8.0_102-b14), built on Jun 22 2016 13:15:21 by "java_re" with MS VC++ 10.0 (VS2010)
+
+time: Sun Dec 18 16:46:42 2016
+elapsed time: 0 seconds (0d 0h 0m 0s)
+
