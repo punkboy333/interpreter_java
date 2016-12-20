@@ -298,6 +298,42 @@ public class RDPBaseListener implements RDPListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTruetable(RDPParser.TruetableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIstautology(RDPParser.IstautologyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIstautology(RDPParser.IstautologyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIsElentmondas(RDPParser.IsElentmondasContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIsElentmondas(RDPParser.IsElentmondasContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIsKielegitheto(RDPParser.IsKielegithetoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIsKielegitheto(RDPParser.IsKielegithetoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

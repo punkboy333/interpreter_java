@@ -1,0 +1,8 @@
+build
+target
+.settings
+*.txt
+*.log
+RDP*.class
+RDP*.java
+*.log

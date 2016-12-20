@@ -16,14 +16,14 @@ NUMBER : [1-9];
 LEFT : '(';
 RIGHT : ')';
 
-main : MAIN (read|write|writeln|get|push|pop|callmethod |set|fore|ife|truetable| NAME)* (returne|) ENDMAIN;
+main : MAIN (read|write|writeln|get|push|pop|callmethod |set|fore|ife|truetable|istautology|isElentmondas|isKielegitheto| NAME)* (returne|) ENDMAIN;
 MAIN : 'MAIN';
 ENDMAIN : 'END MAIN';
 
 callmethod : 'method' NAME LEFT NAME* RIGHT (('->' (VAR|NAME))|);
 
 
-WS : [ \t\r\n' ' ]+ -> skip ; // skip spaces, tabs, newlines
+WS : COMMENT*  [ \t\r\n' ' ]+ -> skip ; // skip spaces, tabs, newlines
 LINEBREAK : [\n];
 linebreak : LINEBREAK;
 /*
@@ -58,6 +58,7 @@ BINCON : '<' | '>' | '&' |'|' ;
 
 
 /***********************Function */
+COMMENT : '/*' STRING* '*/';
 read : 'read' LEFT (NAME|VAR) RIGHT;
 write: 'write' ((LEFT (NAME|VAR) RIGHT )| (LEFT '"' (STRING) '"'RIGHT));
 writeln:'writeln' LEFT RIGHT;
@@ -66,7 +67,10 @@ push : 'push' LEFT NAME ',' NAME RIGHT;
 pop : 'pop' LEFT NAME RIGHT (('->' NAME)|);
 set : 'set' LEFT logicalinput RIGHT (('->' NAME)|);
 returne : 'return' ('list'|'VAR'|'from')  (NAME|VAR);
-ife:'if' 'then' VAR ('else' main|) 'end';
+ife:'if' LEFT (logicalinput|var)RIGHT 'then' main ('else' main|) 'end';
 fore:'for'LEFT NAME 'in' NAME  RIGHT main 'end' ;
 truetable:'truthtable' LEFT NAME RIGHT;
+istautology:'isTautology'LEFT NAME RIGHT (('->' VAR)|);
+isElentmondas : 'isEllentmondas'LEFT NAME RIGHT (('->' VAR)|);
+isKielegitheto : 'isKielegitheto'LEFT NAME RIGHT (('->' VAR)|);// itt 42
 STRING :(VAR|BIGNAME|NUMBER) (VAR|BIGNAME|NUMBER|'_'|'-')*;

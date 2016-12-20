@@ -1,0 +1,69 @@
+﻿Documentation
+Az interpreter egy logikai formulákat feldolgozó nyelvet futtat.
+
+Felépítés: 
+  Deklarációs rész: 
+  DECLARE
+  END DECLARE
+	Deklarációs részben megadható változók típusai: 
+1. VAR: logikai változó, igaz vagy hamis értéket vehet fel.
+2. from: nulladrendű logikai formula
+1. operátor: 
+a. bincon: | , & , >
+b. uncon: -
+c. list: from típusokat tartalmazó lista
+  
+  Alprogram:
+  METHOD 
+  END METHOD
+	Saját deklarációs résszel rendelkezik.
+	Saját main résszel rendelkezik.
+	Az alprogram csak a saját változóit, és paraméterként átadott változókat látja.
+	Amennyiben van megadva return rész, abban az esetben függvény.
+	Egyébként eljárás.
+  
+  Fő program: 
+  MAIN
+  END MAIN
+  Az ebben a részben megadott utasítások hajtódnak végre.
+  
+  Utasítások: 
+1. write: 
+2. (from vagy list vagy var): kiírja a megkapott paramétert
+3. ("STRING"): kiírja a megadott stringet, amennyiben angol ABC betűi, számok,  "_", "-" 
+4. karakterek szerepelnek benne
+2. read: 
+1. (változó): megadott változó értékét egyenlővé tesz a standard inputról bekért értékkel
+3. get:
+1. (from vagy var): kiértékeli a beírt változót
+⇒ var : berakja a kiértékelt eredményt a megadott var változóba
+4. push:
+1. (from, list): a megadott from változót berakja a megadott list listába
+5. push:
+1. (list): kivesz a listából az utolsó elemet
+⇒ from : megadott from-ba belehelyezi a kivett értéket
+6. set:
+1. (formula): felveszi a beírt formulákat
+⇒ from : behelyezi a formulát a from változóba
+7. for :
+1. (from 'in' list ): végig megy a beadott listán és az elemket beteszi a from-ba
+2. tartalmaz egy main részt a from elérhető változó ekkor és hivatkozható, a main anyiszor fut még a listán végig nem megyünk
+8. truthtable:
+1. (form) : kiirja a form igazság tábláját
+9. isTautology:
+1. (form) : megnézi tautológikus-e a formula
+⇒ VAR : visszaadja egy var-ba hogy tautologikus-e
+10. isEllentmondas:
+1. (form) : megnézi elentmondás-e a formula
+⇒ VAR : visszaadja egy var-ba hogy elentmodnás-e
+11. isKielegitheto:
+1. (form) : megnézi kielégíthető-e a formula
+⇒ VAR : visszaadja egy var-ba hogy kielégíthető-e-e
+12. if:
+1. (formula vagy from):kiértékeli ha igaz akkor then ág ha nem akkor else. Else ág nem kötelező.
+2. A then és az else ág is tartalmazhat egy egy main részt
+13. method:
+1. metodus név(paraméter lista):paraméter lista tartalmazhat VAR , list, from elmeket
+2. meghivja a megadott nevű methodust
+⇒ VAR változó a visszatérő értéket a megadott változóba helyezi
+             

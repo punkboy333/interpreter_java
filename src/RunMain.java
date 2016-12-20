@@ -18,6 +18,8 @@ import org.w3c.dom.ls.LSInput;
 
 
 
+
+
 public class RunMain {
 
 	VariableIn ls;
@@ -87,8 +89,35 @@ public class RunMain {
 		else if(tree.getChild(0).getText().equals("for"))
 			forObject(tree);
 		else if (tree.getChild(0).getText().equals("truthtable"))
-			igazsagtabla(tree);
+			igazsagtabla(tree,0);
+		else if(tree.getChild(0).getText().equals("isTautology"))
+			{
+			igazsagtabla(tree, 1);
+			if(isTautology)
+				ls.SetValue(tree.getChild(5).getText(),"true");
+			else
+				ls.SetValue(tree.getChild(5).getText(),"false");
+			}
+		else if(tree.getChild(0).getText().equals("isEllentmondas"))
+			{
+			igazsagtabla(tree, 1);
+				if(isNottrue)
+					ls.SetValue(tree.getChild(5).getText(),"true");
+				else
+					ls.SetValue(tree.getChild(5).getText(),"false");
+			}
+		else if(tree.getChild(0).getText().equals("isKielegitheto"))
+			{
+			igazsagtabla(tree, 1);
+			if(isgetTrue)
+				ls.SetValue(tree.getChild(5).getText(),"true");
+			else
+				ls.SetValue(tree.getChild(5).getText(),"false");
+			}
+		else if(tree.getChild(0).getText().equals("if"))
+			ifReturn(tree);
 		else throw new Exception("FORMAT ERROR");
+
 	}
 
 	public void read(ParseTree tree) throws Exception {
@@ -165,8 +194,8 @@ public class RunMain {
 			 }
 			 catch(Exception e){}
 		if (root.getChild(0).getText().equals("-")){
-			System.out.println("\n"+!root.getChild(1).getText().equals("true")+"\n");
-			return !root.getChild(1).getText().equals("true") ;}
+			
+			return !ls.getVar(root.getChild(1).getText()).value.get(0).equals("true") ;}
 			
 		 if (ls.getVar(root.getChild(0).getText()) != null)
 				return ls.getVar(root.getChild(0).getText()).value.get(0).equals("true");
@@ -176,7 +205,7 @@ public class RunMain {
 			
 		throw new Exception("NON DECLERATED VARIABLE");
 
-		
+
 	}
 	
 	public void verem(ParseTree tree , int type) throws Exception{
@@ -272,10 +301,12 @@ boolean isTautology = true , isNottrue = true , isgetTrue = false;
 	
 
 
-	public void igazsagtabla(ParseTree tree) throws Exception{
+	public void igazsagtabla(ParseTree tree , int type) throws Exception{
 		
 		VariableIn.Variable var = ls.getVar(tree.getChild(2).getText());
-		
+		isTautology = true ;
+		isNottrue = true ;
+		isgetTrue = false;
 		ANTLRInputStream input = new ANTLRInputStream((String)var.value.get(0));
 		RDPLexer lexer = new RDPLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -284,7 +315,7 @@ boolean isTautology = true , isNottrue = true , isgetTrue = false;
 		ParseTree tr = parser.logicalinput();
 		
 		for (Token token : tokens.getTokens()) {
-			if (token.getType() == 39 )
+			if (token.getType() == 42 )
 			{list.add(token.getText());
 			listValue.add((String)ls.getVar(list.get(list.size()-1)).value.get(0));}
 		}
@@ -293,10 +324,10 @@ boolean isTautology = true , isNottrue = true , isgetTrue = false;
 		int j=list.size() ;
 		
 	
-		int k = j;
-		for(int i = 0 ; i<j;i++)
-			k*=j;
-	
+		int k = 2;
+		for(int i = 0 ; i<j-1;i++)
+			k*=2;
+		
 		boolean[][] b = new boolean[j][k] ;
 		boolean set = true;
 		int felezo = k , lepteto= 0 ;;
@@ -313,8 +344,7 @@ boolean isTautology = true , isNottrue = true , isgetTrue = false;
 			}
 		}
 		
-		for(String s : list)
-		System.out.println("list: "+s);
+		
 		for(int i = 0 ; i<k ; i++)
 			{
 			for(int ii = 0 ; ii<j; ii++ )
@@ -323,8 +353,10 @@ boolean isTautology = true , isNottrue = true , isgetTrue = false;
 				ls.SetValue(list.get(ii), "true");
 				else
 					ls.SetValue(list.get(ii), "false");
+				if(type==0)
 				System.out.print(" Variable :" + ls.getVar(list.get(ii)));
 				}
+			if(type==0)
 			System.out.println(" Form:"+tr.getText()+" Return:"+value(tr.getChild(0))); 
 			if(value(tr.getChild(0)))
 				{isNottrue=false;
@@ -340,6 +372,20 @@ boolean isTautology = true , isNottrue = true , isgetTrue = false;
 		}
 		list.removeAll(list);
 		listValue.removeAll(listValue);
-		System.out.println("isTautology:" + isTautology + " Kielégíthető:"+ isgetTrue + " Elentmodnás:"+isNottrue);
+		//System.out.println("isTautology:" + isTautology + " Kielégíthetö:"+ isgetTrue + " Elentmodnás:"+isNottrue);
+	}
+	public void ifReturn(ParseTree tree)throws Exception{
+		try{
+		if(value(tree.getChild(2)))
+				run(tree.getChild(5));
+		else
+			run(tree.getChild(7));
+		}catch(Exception e)
+		{
+			if(value(tree.getChild(2).getChild(0)))
+				run(tree.getChild(5));
+		else
+			run(tree.getChild(7));
+		}
 	}
 }
