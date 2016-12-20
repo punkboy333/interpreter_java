@@ -1,73 +1,75 @@
-Az interpreter egy logikai formulákat feldolgozó nyelvet futtat.
-Nyelvfelépítés: 
--Két típust tartalmaz: form (nulladrendű logikai formula)
-					   list (lista)
--Eszközök: if-then-else
-		   for (egy form típusú változó felveszi sorban a listában lévő elemeket)
+DECLARE
+	from fr = (a & b) /*formula_tipus_dec_ertekkel*/
+	list lss /*lista_tipus_dec_uresen*/
+	VAR a = false /*valtozo_dec_ertekkel*/
+	VAR b = false
+	VAR c = true
+	from frr = (a | c)
+	list ls
+END DECLARE
+METHOD sajatmetod(list lista) /*method_kinezete*/
+	DECLARE
+		list ls
+	END DECLARE
+	MAIN
+	writeln()
+	write("Method")
+	writeln()
+	return list ls
+	END MAIN
+END METHOD
+MAIN
+	write("Ird_be_b-t") /*Kiir*/
+	writeln()  /*sortores*/
+	read(b) /*beolvasa_b_erteket*/
+	write (a) /*kiir_a-t*/
+	writeln()
+	writeln()
+	get(fr)->a  /*kiertekel_fr_es_eredmeny_a-ban*/
+	get(frr) -> c 
+	set((-a>b)) -> fr   /*a_kovetkezo_formulat_beteszi_b-be*/
+	write(fr) 
+	write(a)
+	get(fr) -> a
+	writeln()
+	write("Ertek_")
+	write(a)
+	writeln()
+	write (c)
+	write (a)
+	push(fr , lss)  /*fr_-t_beteszi_lss-be*/
+	push(fr , lss)
+	set((a&b)) -> fr 
+	pop(lss) -> frr /*kiveszi_lss_legutcso_elemet_es_beteszi_frr-be*/
+	writeln()
+	write(frr)
+	for(vs in lss)  /*forciklus*/
+		MAIN 
+			writeln()
+			write(vs)
+			writeln()
+		END MAIN 
+	end
+	set((a|(b|-c))) -> fr
+	truthtable(fr) /*trutable_kiiratasa*/
+	isTautology(fr) -> a
+	write(a)
+	writeln()
+	isEllentmondas(fr) -> a
+	write(a)
+	writeln()
+	isKielegitheto(fr) ->a
+	write(a)
+	writeln()
+	if((a&-a)) then  /*ifagaztatas*/
+		MAIN 
+			write("Igaz") 
+		END MAIN 
+			else
+		MAIN 
+			write("Hamis") 
+		END MAIN
+	end
+	method sajatmetod(lss) -> lss /*method_hivas*/
+END MAIN
 
-Kulcsszavak: 
-  Deklarációs rész: 
-  DECLARE
-  END DECLARE
-	Deklarációs részben megadható változók típusai: 
-		1. VAR: logikai változó, igaz vagy hamis értéket vehet fel.
-		2. from: nulladrendű logikai formula
-			operátor: 
-				bincon: | , & , >
-				uncon: -
-		3. list: from típusokat tartalmazó lista
-  
-  Alprogram:
-  METHOD 
-  END METHOD
-	Saját deklarációs résszel rendelkezik.
-	Saját main résszel rendelkezik.
-	Az alprogram csak a saját változóit, és paraméterként átadott változókat látja.
-	Amennyiben van megadva return rész, abban az esetben függvény.
-	Egyébként eljárás.
-  
-  Főprogram: 
-  MAIN
-  END MAIN
-  Az ebben a részben megadott utasítások hajtódnak végre.
-  
-  Utasítások: 
-	1. write: 
-		(from vagy list vagy var): kiírja a megkapott paramétert
-		("STRING"): kiírja a megadott stringet, amennyiben angol ABC betűi, számok,  "_", "-" 
-					karakterek szerepelnek benne
-	2. read: 
-		(változó): megadott változó értékét egyenlővé tesz a standard inputról bekért értékkel
-	3. get:
-		(from vagy var): kiértékeli a beírt változót
-		 -> var : berakja a kiértékelt eredményt a megadott var változóba
-	4. push:
-		(from, list): a megadott from változót berakja a megadott list listába
-	5. push:
-		(list): kivesz a listából az utolsó elemet
-		 -> from : megadott from-ba belehelyezi a kivett értéket
-	6. set:
-		(formula): felveszi a beírt formulákat
-		-> from : behelyezi a formulát a from változóba
-	7. for :
-		(from 'in' list ): végig megy a beadott listán és az elemket beteszi a from-ba
-			tartalmaz egy main részt a from elérhető változó ekkor és hivatkozható, a main anyiszor fut még a listán végig nem megyünk
-	8. truthtable:
-		(form) : kiirja a form igazság tábláját
-	9. isTautology:
-		(form) : megnézi tautológikus-e a formula
-		-> VAR : visszaadja egy var-ba hogy tautologikus-e
-	10. isEllentmondas:
-		 (form) : megnézi elentmondás-e a formula
-		 -> VAR : visszaadja egy var-ba hogy elentmodnás-e
-	11. isKielegitheto:
-		 (form) : megnézi kielégíthető-e a formula
-		 -> VAR : visszaadja egy var-ba hogy kielégíthető-e-e
-	12. if:
-		 (formula vagy from):kiértékeli ha igaz akkor then ág ha nem akkor else. Else ág nem kötelező.
-			A then és az else ág is tartalmazhat egy egy main részt
-	12. method:
-			metodus név(paraméter lista):paraméter lista tartalmazhat VAR , list, from elmeket
-			meghivja a megadott nevű methodust
-			-> VAR változó a visszatérő értéket a megadott változóba helyezi
-		
