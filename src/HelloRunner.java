@@ -1,17 +1,8 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
-
-
-
-
-
-import org.antlr.runtime.tree.TreeParser;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
@@ -25,7 +16,6 @@ public class HelloRunner {
 		BufferedReader read = new BufferedReader(new InputStreamReader(
 				System.in));
 		String inputIO = null;
-		@SuppressWarnings("unused")
 		String alin = "";
 		System.out.println("irj be valamit:");
 		while (true) {

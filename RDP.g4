@@ -16,11 +16,11 @@ NUMBER : [1-9];
 LEFT : '(';
 RIGHT : ')';
 
-main : MAIN (read|write|writeln|get|push|pop|callmethod |set| NAME)* ENDMAIN;
+main : MAIN (read|write|writeln|get|push|pop|callmethod |set|fore|ife|truetable| NAME)* (returne|) ENDMAIN;
 MAIN : 'MAIN';
 ENDMAIN : 'END MAIN';
 
-callmethod : 'method' NAME LEFT NAME* RIGHT;
+callmethod : 'method' NAME LEFT NAME* RIGHT (('->' (VAR|NAME))|);
 
 
 WS : [ \t\r\n' ' ]+ -> skip ; // skip spaces, tabs, newlines
@@ -65,4 +65,8 @@ get : 'get' LEFT (NAME|VAR) RIGHT (('->' VAR)|);
 push : 'push' LEFT NAME ',' NAME RIGHT;
 pop : 'pop' LEFT NAME RIGHT (('->' NAME)|);
 set : 'set' LEFT logicalinput RIGHT (('->' NAME)|);
+returne : 'return' ('list'|'VAR'|'from')  (NAME|VAR);
+ife:'if' 'then' VAR ('else' main|) 'end';
+fore:'for'LEFT NAME 'in' NAME  RIGHT main 'end' ;
+truetable:'truthtable' LEFT NAME RIGHT;
 STRING :(VAR|BIGNAME|NUMBER) (VAR|BIGNAME|NUMBER|'_'|'-')*;

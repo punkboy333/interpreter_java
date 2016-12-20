@@ -206,4 +206,44 @@ public interface RDPListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSet(RDPParser.SetContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RDPParser#returne}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturne(RDPParser.ReturneContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RDPParser#returne}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturne(RDPParser.ReturneContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RDPParser#ife}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfe(RDPParser.IfeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RDPParser#ife}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfe(RDPParser.IfeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RDPParser#fore}.
+	 * @param ctx the parse tree
+	 */
+	void enterFore(RDPParser.ForeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RDPParser#fore}.
+	 * @param ctx the parse tree
+	 */
+	void exitFore(RDPParser.ForeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RDPParser#truetable}.
+	 * @param ctx the parse tree
+	 */
+	void enterTruetable(RDPParser.TruetableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RDPParser#truetable}.
+	 * @param ctx the parse tree
+	 */
+	void exitTruetable(RDPParser.TruetableContext ctx);
 }

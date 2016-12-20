@@ -10,7 +10,9 @@ import org.antlr.v4.parse.ANTLRParser.throwsSpec_return;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.w3c.dom.ls.LSInput;
 
 
 
@@ -73,9 +75,19 @@ public class RunMain {
 		else if (tree.getChild(0).getText().equals("pop"))
 			verem(tree, 1);
 		else if (tree.getChild(0).getText().equals("method"))
+			{
+			try {gloret = ls.getVar(tree.getChild(6).getText()); } catch(Exception e){}
 			runMethod(tree.getChild(1));
+			}
 		else if (tree.getChild(0).getText().equals("set"))
 			ls.SetValue(tree.getChild(5).getText(), tree.getChild(2).getChild(0).getText());
+		else if(tree.getChild(0).getText().equals("return"))
+			returnVar(tree)
+			;
+		else if(tree.getChild(0).getText().equals("for"))
+			forObject(tree);
+		else if (tree.getChild(0).getText().equals("truthtable"))
+			igazsagtabla(tree);
 		else throw new Exception("FORMAT ERROR");
 	}
 
@@ -178,11 +190,14 @@ public class RunMain {
 			VariableIn.Variable  var = (VariableIn.Variable)ls.getVar(tree.getChild(2).getText()).value.get(ls.getVar(tree.getChild(2).getText()).value.size()-1);
 			String st =(String) var.value.get(0);
 			System.out.println("\nPop:"+st);
+			int i =ls.ls.indexOf(ls.getVar(tree.getChild(2).getText()));
+			ls.ls.get(i).value.remove(ls.ls.get(i).value.size()-1);
 			if(tree.getChild(5)!= null)
 				ls.SetValue(tree.getChild(5).getText(), st);;
 			}
 		
 	}
+	Object gloret= null;
 	public void runMethod(ParseTree tree)throws Exception{
 		String s = tree.getText();
 		tree=tree.getParent().getParent().getParent();
@@ -195,7 +210,9 @@ public class RunMain {
 	}
 	
 	public void runerMethod(ParseTree tree)throws Exception{
-		ArrayList<VariableIn.Variable> save = ls.ls;
+		ArrayList<VariableIn.Variable> save = new ArrayList<VariableIn.Variable>();
+		for(VariableIn.Variable v : ls.ls)
+			save.add(v);
 		ls.ls.removeAll(ls.ls);
 		
 		
@@ -206,11 +223,123 @@ public class RunMain {
 		ls.ls.addAll(global);
 		
 		run(tree.getChild(tree.getChildCount()-2));
-		global = ls.ls;
+		global=ls.ls ;
 		ls.ls = save;
 		for( ; i<global.size();i++)
 			ls.ls.add(global.get(i));
+		VariableIn.Variable var = null;
+		try{
+		var = (VariableIn.Variable)gloret;
+		
+		if(var != null && var.value != null){
+			try{
+			ls.SetValue(var.name, var.value);}/*bugfixedre vár :D*/
+			catch(Exception e){}
+			gloret = null;
+		}
+		}catch (Exception e) {
+			throw new Exception("VarError");
+			
+		}
 		
 	}
+	public Object returnVar(ParseTree tree)throws Exception{
+		try{
+			VariableIn.Variable var = (VariableIn.Variable)gloret;
+			if(var != null){
+			var.value = ls.getVar(tree.getChild(2).getText()).value;
+			gloret = var;}
+		return ls.getVar(tree.getChild(2).getText());
+		}catch(Exception e)
+		{
+			throw new Exception("NullPointerException_on_Return");
+		}
+	}
+	public void forObject(ParseTree tree)throws Exception{
+		VariableIn.Variable var =ls.CreatVariable(0, tree.getChild(2).getText(), null);
+		ls.ls.add(var);
+		for(int i = 0 ; i< ls.getVar(tree.getChild(4).getText()).value.size();i++){
+			ls.ls.get(ls.ls.size()-1).value.set(0,ls.getVar(tree.getChild(4).getText()).value.get(i));
+			run(tree.getChild(tree.getChildCount()-2));
+		}
+		ls.ls.remove(ls.ls.size()-1);
+		
+	}
+
+ArrayList<String> list = new ArrayList<String>();
+ArrayList<String> listValue = new ArrayList<String>();
+boolean isTautology = true , isNottrue = true , isgetTrue = false;
 	
+
+
+	public void igazsagtabla(ParseTree tree) throws Exception{
+		
+		VariableIn.Variable var = ls.getVar(tree.getChild(2).getText());
+		
+		ANTLRInputStream input = new ANTLRInputStream((String)var.value.get(0));
+		RDPLexer lexer = new RDPLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		RDPParser parser = new RDPParser(tokens);
+		
+		ParseTree tr = parser.logicalinput();
+		
+		for (Token token : tokens.getTokens()) {
+			if (token.getType() == 39 )
+			{list.add(token.getText());
+			listValue.add((String)ls.getVar(list.get(list.size()-1)).value.get(0));}
+		}
+		
+		
+		int j=list.size() ;
+		
+	
+		int k = j;
+		for(int i = 0 ; i<j;i++)
+			k*=j;
+	
+		boolean[][] b = new boolean[j][k] ;
+		boolean set = true;
+		int felezo = k , lepteto= 0 ;;
+		for(int i = 0 ; i< j ; i++){
+			felezo/=2;
+			lepteto=0;
+			for(int ii = 0 ; ii <k ; ii++)
+			{
+				if(lepteto==felezo)
+					{set=!set;
+					lepteto=0;}
+				lepteto++;
+				b[i][ii]=set;
+			}
+		}
+		
+		for(String s : list)
+		System.out.println("list: "+s);
+		for(int i = 0 ; i<k ; i++)
+			{
+			for(int ii = 0 ; ii<j; ii++ )
+				{
+				if(b[ii][i])
+				ls.SetValue(list.get(ii), "true");
+				else
+					ls.SetValue(list.get(ii), "false");
+				System.out.print(" Variable :" + ls.getVar(list.get(ii)));
+				}
+			System.out.println(" Form:"+tr.getText()+" Return:"+value(tr.getChild(0))); 
+			if(value(tr.getChild(0)))
+				{isNottrue=false;
+				isgetTrue = true;
+				}
+			else
+				isTautology=false;
+			
+			}
+		for (int i = 0 ; i < list.size();i++)
+		{
+			ls.SetValue(list.get(i), listValue.get(i));
+		}
+		list.removeAll(list);
+		listValue.removeAll(listValue);
+		System.out.println("isTautology:" + isTautology + " Kielégíthető:"+ isgetTrue + " Elentmodnás:"+isNottrue);
+	}
 }

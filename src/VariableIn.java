@@ -1,8 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -50,6 +47,10 @@ public class VariableIn {
 
 	}
 
+	public Variable CreatVariable(int type , String name , String value){	
+		return new Variable(type, name, value);
+	}
+	
 	public Variable getVar(String name) {
 
 		for (Variable variable : ls) {
@@ -88,6 +89,7 @@ public class VariableIn {
 
 	public ArrayList<Variable> ls;
 
+	@SuppressWarnings("rawtypes")
 	public ArrayList variableList(ParseTree tree) {
 		ls = new ArrayList<Variable>();
 
