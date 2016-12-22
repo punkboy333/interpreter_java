@@ -262,7 +262,18 @@ public class RunMain {
 		
 		if(var != null && var.value != null){
 			try{
-			ls.SetValue(var.name, var.value);}/*bugfixedre vár :D*/
+			if (ls.getVar(var.name).type != 2)
+			ls.SetValue(var.name, var.value);/*bugfixedre vár :D*/
+			else
+				for(int f = 0 ; f < ls.ls.size();f++)
+				{
+					if(ls.ls.get(f).name == var.name){
+						
+						ls.ls.get(f).value = var.value;
+					break;	
+					}
+				}
+			}
 			catch(Exception e){}
 			gloret = null;
 		}
